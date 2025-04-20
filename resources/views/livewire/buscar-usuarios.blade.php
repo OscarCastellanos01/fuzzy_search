@@ -1,33 +1,40 @@
-<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+<div class="container py-5">
+
     <div class="mb-4 text-center">
-        <h4 class="fw-bold mb-0">🔍 Búsqueda con <span class="text-primary">Fuse.js</span> + <span class="text-info">Bootstrap 5</span></h4>
-        <small class="text-muted">Ejemplo de select personalizado con búsqueda difusa</small>
+        <h4 class="fw-bold mb-0">
+            🔍 Búsqueda con 
+            <span class="text-primary">Fuse.js</span> + 
+            <span class="text-info">Bootstrap 5</span> + 
+            <span style="color: #6f42c1;">Livewire</span>
+        </h4>
+        <small class="text-muted">Ejemplo de select personalizado con búsqueda difusa y soporte dinámico</small>
     </div>
 
-    <div class="position-relative w-100" style="max-width: 500px;">
-        <input
-            type="text"
-            id="busqueda"
-            placeholder="Buscar usuario..."
-            class="form-control"
-            autocomplete="off"
-        >
+    <div class="row justify-content-center gy-4 gx-4">
+        <div class="col-md-6">
+            <x-fuzzy-select
+                label="Usuario"
+                input-id="busquedaUsuarios"
+                list-id="resultadosUsuarios"
+                item-selector="usuario-item"
+                :items="$usuarios"
+                :keys="['name', 'email']"
+                placeholder="Buscar usuario..."
+                :open="false"
+            />
+        </div>
 
-        <ul
-            id="resultados"
-            class="list-group position-absolute mt-1 shadow"
-            style="display: none; max-height: 300px; overflow-y: auto; z-index: 1000; width: 100%;"
-        >
-            @foreach ($usuarios as $usuario)
-                <li
-                    class="list-group-item usuario-item text-start"
-                    data-name="{{ $usuario->name }}"
-                    data-email="{{ $usuario->email }}"
-                    style="cursor: pointer;"
-                >
-                    {{ $usuario->name }} — <span class="text-muted">{{ $usuario->email }}</span>
-                </li>
-            @endforeach
-        </ul>
+        <div class="col-md-6">
+            <x-fuzzy-select
+                label="Producto"
+                input-id="buscarProducto"
+                list-id="resultadoProducto"
+                item-selector="producto-item"
+                :items="$productos"
+                :keys="['nombre', 'categoria']"
+                placeholder="Buscar producto..."
+                :open="true"
+            />
+        </div>
     </div>
 </div>
